@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll to seek video</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/new.css">
+</head>
+<body>
+    <section class="container" id="container">
+        <div class="content">
+            <h1>Scroll to Begin</h1>
+            <p>Start it like this...</p>
+        </div>
+        <div class="content">
+            <h1>Step 1</h1>
+            <p>Keep Scrolling</p>
+        </div>
+        <div class="content">
+            <h1>Step 2</h1>
+            <p>Refer to Step 1</p>
+        </div>
+        <div class="content">
+            <h1>Step 3</h1>
+            <p>What Step 2 said</p>
+        </div>
+        <div class="content">
+            <h1>Step 4</h1>
+            <p>Almost There</p>
+        </div>
+        <div class="content" style="margin-top:100vh;">
+            <h1>The End</h1>
+            <p>See you next time!</p>
+        </div>
+    </section>
+    <div id="set-height">
+<video id="v0" tabindex="0",autobuffer preload>
+    <source type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"' src="./videos/fingers.mp4"></source>
+
+</video>
+    </div>
+    <script>
+var frameNumber =0, //start video at frame 0
+
+playBackConst=800, //lower number = faster playback
+
+setHeight =document.getElementById('container'),//get page height from video duration
+
+vid = document.getElementById('v0');// get video element
+
+
+vid.addEventListener('loadedmetadata',function(){
+    setHeight.style.height= Math.floor(vid.duration)* playBackConst+ "px";
+});
+
+function scrollPlay(){
+    var frameNumber = window.pageYOffset/playBackConst;
+    vid.currentTime =frameNumber;
+    window.requestAnimationFrame(scrollPlay);
+}
+window.requestAnimationFrame(scrollPlay);
+    </script>
+</body>
+</html>
